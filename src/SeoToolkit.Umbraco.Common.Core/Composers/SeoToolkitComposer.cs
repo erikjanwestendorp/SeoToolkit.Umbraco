@@ -5,6 +5,7 @@ using Umbraco.Extensions;
 using SeoToolkit.Umbraco.Common.Core.Collections;
 using SeoToolkit.Umbraco.Common.Core.ContentApps;
 using SeoToolkit.Umbraco.Common.Core.Dashboards;
+using SeoToolkit.Umbraco.Common.Core.Helpers;
 using SeoToolkit.Umbraco.Common.Core.Repositories.SeoSettingsRepository;
 using SeoToolkit.Umbraco.Common.Core.Sections;
 using SeoToolkit.Umbraco.Common.Core.Services.SeoSettingsService;
@@ -32,7 +33,8 @@ namespace SeoToolkit.Umbraco.Common.Core.Composers
 
             builder.Services.AddUnique<ISeoSettingsRepository, SeoSettingsRepository>();
             builder.Services.AddUnique<ISeoSettingsService, SeoSettingsService>();
-            
+
+            builder.Services.AddTransient<HttpRequestHelper>();
         }
     }
 }

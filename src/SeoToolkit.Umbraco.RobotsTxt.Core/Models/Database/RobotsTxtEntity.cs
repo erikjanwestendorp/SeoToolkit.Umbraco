@@ -14,5 +14,8 @@ namespace SeoToolkit.Umbraco.RobotsTxt.Core.Models.Database
         [Column("Content")]
         [SpecialDbType(SpecialDbTypes.NVARCHARMAX)]
         public string Content { get; set; }
+
+        [Column("DomainId")]
+        public int DomainId { get; set; }
     }
 }

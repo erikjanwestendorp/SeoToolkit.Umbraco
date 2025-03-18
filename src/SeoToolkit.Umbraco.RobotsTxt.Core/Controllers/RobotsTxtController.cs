@@ -27,6 +27,13 @@ namespace SeoToolkit.Umbraco.RobotsTxt.Core.Controllers
             return new JsonResult(_robotsTxtService.GetContent());
         }
 
+        [HttpGet]
+        public IActionResult GetByDomainId(int domainId)
+        {
+            var content = _robotsTxtService.GetContent(domainId);
+            return new JsonResult(content);
+        }
+
         [HttpPost]
         public IActionResult Save(RobotsTxtSavePostModel model)
         {
@@ -40,6 +47,12 @@ namespace SeoToolkit.Umbraco.RobotsTxt.Core.Controllers
                 {
                     return BadRequest(validationErrors.Select(it => new RobotsTxtValidationViewModel(it)));
                 }
+            }
+
+            if (model.DomainId.HasValue)
+            {
+                _robotsTxtService.SetContent(content, model.DomainId.Value);
+                return GetByDomainId(model.DomainId.Value);
             }
 
             _robotsTxtService.SetContent(content);

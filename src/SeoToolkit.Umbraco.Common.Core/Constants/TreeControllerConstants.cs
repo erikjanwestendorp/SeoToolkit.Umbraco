@@ -28,5 +28,11 @@
             public const string Alias = "SiteAudit";
             public const string Title = "Site Audits";
         }
+
+        public static class Website
+        {
+            public const string Alias = "Websites";
+            public const string Title = "Websites";
+        }
     }
 }

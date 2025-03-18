@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function robotsTxtDetailController($scope, $http, notificationsService, formHelper, overlayService) {
+    function robotsTxtDetailController($scope, $http, notificationsService, formHelper, overlayService, $routeParams) {
 
         var vm = this;
         vm.validationErrors = [];
@@ -15,7 +15,8 @@
             vm.validationErrors = [];
             $http.post("backoffice/SeoToolkit/RobotsTxt/Save", {
                 skipValidation: !!skipValidation,
-                content: vm.model
+                content: vm.model,
+                domainId: $routeParams.id
             }).then(function (response) {
                 notificationsService.success("Robots.txt saved!");
                 vm.model = response.data;
@@ -48,7 +49,19 @@
 
         function init() {
             vm.loading = true;
-            $http.get("backoffice/SeoToolkit/RobotsTxt/Get").then(function(response) {
+            var id = $routeParams.id;
+            console.log(id);
+            var url = "backoffice/SeoToolkit/RobotsTxt/";
+
+            if ($routeParams.id) {
+                url = url + "GetByDomainId?domainId=" + $routeParams.id;
+            } else {
+                url = url + "Get";
+            }
+
+            console.log(url);
+
+            $http.get(url).then(function(response) {
                 vm.model = response.data;
                 vm.loading = false;
             });

@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using SeoToolkit.Umbraco.RobotsTxt.Core.Interfaces;
 using SeoToolkit.Umbraco.RobotsTxt.Core.Services;
+using Umbraco.Cms.Core.Services;
 
 namespace SeoToolkit.Umbraco.RobotsTxt.Core.Middleware
 {
@@ -24,7 +25,7 @@ namespace SeoToolkit.Umbraco.RobotsTxt.Core.Middleware
                 await _next.Invoke(context);
                 return;
             }
-
+            
             var robotsTxt = _robotsTxtService.GetContentWithSitemaps(context.Request);
             if (string.IsNullOrWhiteSpace(robotsTxt))
             {
